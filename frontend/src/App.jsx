@@ -31,6 +31,7 @@ function App() {
   const [prompt, setPrompt] = useState("");
   const [response, setResponse] = useState("");
   const [loading, setLoading] = useState(false);
+  const [enableBtn, setEnableBtn] = useState(true);
   const [saveStatus, setSaveStatus] = useState("");
 
   const initialNodes = [
@@ -82,6 +83,7 @@ function App() {
 
   // Run Flow — call backend AI endpoint with Streaming
   const handleRunFlow = async () => {
+    setEnableBtn(false);
     setLoading(true);
     setResponse("");
     setSaveStatus("");
@@ -157,7 +159,10 @@ function App() {
       setLoading(false);
       while (true) {
         const { done, value } = await reader.read();
-        if (done) break;
+        if (done) {
+          setEnableBtn(true);
+          break;
+        };
 
         streamBuffer += decoder.decode(value, { stream: true });
         let boundary = streamBuffer.lastIndexOf("\n");
@@ -232,7 +237,7 @@ function App() {
           <button
             className="btn btn-primary"
             onClick={handleRunFlow}
-            disabled={loading || !prompt.trim()}
+            disabled={loading || !prompt.trim() || !enableBtn}
             id="run-flow-btn"
           >
             {loading ? (
