@@ -198,6 +198,7 @@ function App() {
       }
     } catch (error) {
       setResponse(`❌ Error: Failed to get AI response.`);
+      setEnableBtn(true);
       setLoading(false);
     } finally {
       const finalDrain = setInterval(() => {
