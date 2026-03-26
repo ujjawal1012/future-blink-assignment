@@ -13,7 +13,7 @@ import InputNode from "./components/InputNode";
 import ResultNode from "./components/ResultNode";
 import "./App.css";
 
-const API_BASE = "http://localhost:5000/api";
+const API_BASE = "https://future-blink-assignment-l26v.onrender.com/api";
 
 const initialEdges = [
   {
